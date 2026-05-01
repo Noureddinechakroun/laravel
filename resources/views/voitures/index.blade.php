@@ -6,36 +6,7 @@
 <title>Voitures</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/carrental.css') }}">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
-body{display:flex;background:#f4f6f9;color:#111827}
-.sidebar{width:250px;min-height:100vh;background:#111827;color:white;padding:24px;position:fixed}
-.logo{font-size:24px;font-weight:700;margin-bottom:30px}
-.sidebar a{display:block;color:#cbd5e1;text-decoration:none;padding:12px;border-radius:8px;margin-bottom:8px}
-.sidebar a:hover,.sidebar a.active{background:#2563eb;color:white}
-.main{margin-left:250px;width:calc(100% - 250px);padding:34px;min-height:100vh}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
-.top h1{font-size:34px;line-height:1}
-.top p{color:#64748b;margin-top:8px}
-.btn{display:inline-flex;align-items:center;justify-content:center;border:none;border-radius:8px;padding:10px 14px;color:white;text-decoration:none;cursor:pointer;font-size:14px;font-weight:500}
-.add{background:#10b981}.edit{background:#2563eb}.delete{background:#ef4444}
-.message{background:#dcfce7;color:#166534;padding:13px 16px;border-radius:8px;margin-bottom:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,330px));gap:24px;align-items:start}
-.car{background:white;border-radius:8px;overflow:hidden;box-shadow:0 10px 24px rgba(15,23,42,.09);border:1px solid #e5e7eb}
-.photo{height:185px;background:#f8fafc;border-bottom:1px solid #eef2f7}
-.car img{width:100%;height:100%;object-fit:contain;padding:10px}
-.body{padding:18px}
-.body h2{font-size:21px;line-height:1.2;margin-bottom:10px}
-.meta{color:#64748b;margin:8px 0;font-size:14px;line-height:1.6}
-.facts{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
-.fact{background:#f1f5f9;color:#475569;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}
-.price{font-size:22px;font-weight:700;margin:12px 0}
-.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:13px}
-.actions{display:flex;gap:9px;margin-top:16px}
-.empty{background:white;border:1px dashed #cbd5e1;border-radius:8px;padding:30px;color:#64748b;max-width:420px}
-form{display:inline}
-@media(max-width:760px){.sidebar{position:static;width:100%;min-height:auto}.main{margin-left:0;width:100%;padding:18px}body{display:block}.top{align-items:flex-start;gap:12px;flex-direction:column}.grid{grid-template-columns:1fr}.photo{height:210px}}
-</style>
+<link rel="stylesheet" href="{{ asset('css/voitures/index.css') }}">
 </head>
 <body>
 <aside class="sidebar">
