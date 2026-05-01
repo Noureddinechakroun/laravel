@@ -18,6 +18,7 @@ class User extends Authenticatable
         'gender',
         'email',
         'password',
+        'role',
     ];
 
     protected $hidden = [
@@ -30,5 +31,10 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
         ];
+    }
+
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
     }
 }

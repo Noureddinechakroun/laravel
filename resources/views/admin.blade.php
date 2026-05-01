@@ -1,164 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #8b92a9;
-            font-size: 16px;
-        }
-
-        .logout-btn {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #ef5350 0%, #e53935 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(239, 83, 80, 0.3);
-        }
-
-        .dashboard-content {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-        }
-
-        .dashboard-content h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .welcome-message {
-            color: #8b92a9;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 4px solid #1976d2;
-        }
-
-        .feature-card h3 {
-            color: #0d47a1;
-            margin-bottom: 10px;
-        }
-
-        .feature-card p {
-            color: #1565c0;
-            font-size: 14px;
-        }
-
-        .admin-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 12px;
-            margin-top: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin CarRental</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/carrental.css') }}">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+body{display:flex;background:#f4f6f9;color:#111827}
+.sidebar{width:250px;min-height:100vh;background:#111827;color:white;padding:24px;position:fixed}
+.logo{font-size:24px;font-weight:700;margin-bottom:30px}
+.sidebar a{display:block;color:#cbd5e1;text-decoration:none;padding:12px;border-radius:8px;margin-bottom:8px}
+.sidebar a:hover,.sidebar a.active{background:#2563eb;color:white}
+.main{margin-left:250px;width:calc(100% - 250px);padding:28px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.top h1{font-size:28px}
+.logout{background:#ef4444;color:white;text-decoration:none;border:none;border-radius:8px;padding:10px 16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-bottom:28px}
+.card{background:white;border-radius:8px;padding:20px;box-shadow:0 6px 18px rgba(15,23,42,.08)}
+.card span{color:#64748b;font-size:14px}
+.card strong{display:block;font-size:28px;margin-top:8px}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:28px}
+.action{background:white;border-radius:8px;padding:20px;text-decoration:none;color:#111827;box-shadow:0 6px 18px rgba(15,23,42,.08);border-left:5px solid #2563eb}
+.action h3{margin-bottom:8px}
+.action p{color:#64748b;font-size:14px}
+.panel{background:white;border-radius:8px;padding:20px;box-shadow:0 6px 18px rgba(15,23,42,.08)}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{text-align:left;padding:12px;border-bottom:1px solid #e5e7eb}
+th{background:#f8fafc;color:#475569}
+.status{padding:5px 9px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:13px}
+@media(max-width:760px){.sidebar{position:static;width:100%;min-height:auto}.main{margin-left:0;width:100%;padding:18px}body{display:block}.top{align-items:flex-start;gap:12px;flex-direction:column}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div>
-                <h1>Admin Dashboard</h1>
-                <p>Welcome to the administration panel</p>
-            </div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+<aside class="sidebar">
+    <div class="logo">CarRental</div>
+    <a href="{{ route('admin') }}" class="active">Dashboard</a>
+    <a href="{{ route('users.index') }}">Users</a>
+    <a href="{{ route('voitures.index') }}">Voitures</a>
+    <a href="{{ route('locations.index') }}">Locations</a>
+</aside>
+<main class="main">
+    <div class="top">
+        <div>
+            <h1>Dashboard admin</h1>
+            <p>Gestion simple des utilisateurs, voitures et locations.</p>
         </div>
-
-        <div class="dashboard-content">
-            <h2>Welcome to Admin Panel</h2>
-            <p class="welcome-message">
-                This is your admin dashboard. You have full access to manage users, settings, and all system configurations.
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Manage Users</h3>
-                    <p>View, edit, and manage all user accounts</p>
-                </div>
-                <div class="feature-card">
-                    <h3>System Settings</h3>
-                    <p>Configure and manage system-wide settings</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Reports</h3>
-                    <p>View detailed analytics and reports</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Logs</h3>
-                    <p>Monitor system logs and activities</p>
-                </div>
-            </div>
-
-            <span class="admin-badge">Administrator Access</span>
-        </div>
+        <a class="logout" href="{{ route('login') }}">Logout</a>
     </div>
-
-    <script>
-        function logout() {
-            window.location.href = '/login';
-        }
-    </script>
+    <section class="cards">
+        <div class="card"><span>Total users</span><strong>{{ $totalUsers }}</strong></div>
+        <div class="card"><span>Total voitures</span><strong>{{ $totalVoitures }}</strong></div>
+        <div class="card"><span>Total locations</span><strong>{{ $totalLocations }}</strong></div>
+        <div class="card"><span>Revenue</span><strong>{{ number_format($totalRevenue, 2) }} DT</strong></div>
+    </section>
+    <section class="actions">
+        <a class="action" href="{{ route('users.create') }}"><h3>Add user</h3><p>Create client or admin accounts.</p></a>
+        <a class="action" href="{{ route('voitures.create') }}"><h3>Add voiture</h3><p>Add a car with image URL and price.</p></a>
+        <a class="action" href="{{ route('locations.create') }}"><h3>Add location</h3><p>Connect a user with a car and dates.</p></a>
+    </section>
+    <section class="panel">
+        <h2>Latest locations</h2>
+        <table>
+            <tr>
+                <th>Client</th>
+                <th>Voiture</th>
+                <th>Dates</th>
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+            @forelse($latestLocations as $location)
+            <tr>
+                <td>{{ $location->user->firstname }} {{ $location->user->lastname }}</td>
+                <td>{{ $location->voiture->marque }} {{ $location->voiture->modele }}</td>
+                <td>{{ $location->date_debut->format('Y-m-d') }} / {{ $location->date_fin->format('Y-m-d') }}</td>
+                <td>{{ number_format($location->prix_total, 2) }} DT</td>
+                <td><span class="status">{{ $location->statut }}</span></td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="5">No locations yet.</td>
+            </tr>
+            @endforelse
+        </table>
+    </section>
+</main>
+<script src="{{ asset('js/carrental.js') }}"></script>
 </body>
 </html>

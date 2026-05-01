@@ -1,287 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .form-container {
-            background: #fafbfc;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            padding: 50px;
-            width: 100%;
-            max-width: 450px;
-            animation: slideUp 0.5s ease-out;
-            border: 1px solid rgba(220, 224, 228, 0.5);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .form-title {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-
-        .form-subtitle {
-            text-align: center;
-            color: #8b92a9;
-            margin-bottom: 40px;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        label {
-            color: #2c3e50;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            padding: 12px 15px;
-            border: 1px solid #dce0e4;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background-color: #f8fafb;
-            color: #2c3e50;
-        }
-
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #b8c5d6;
-            background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(184, 197, 214, 0.1);
-        }
-
-        input[type="email"]::placeholder,
-        input[type="password"]::placeholder {
-            color: #c4cdd5;
-        }
-
-        .form-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 35px;
-        }
-
-        button {
-            flex: 1;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #b8c5d6 0%, #a8b5c9 100%);
-            color: #2c3e50;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(184, 197, 214, 0.2);
-        }
-
-        .btn-submit:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(184, 197, 214, 0.35);
-            background: linear-gradient(135deg, #c4cfe0 0%, #b4bfd5 100%);
-        }
-
-        .btn-submit:active:not(:disabled) {
-            transform: translateY(-1px);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .btn-submit.loading {
-            pointer-events: none;
-        }
-
-        .btn-reset {
-            background: #e8ecf0;
-            color: #2c3e50;
-            border: 1px solid #dce0e4;
-        }
-
-        .btn-reset:hover {
-            background: #dce0e4;
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            margin-right: 8px;
-            border: 2px solid rgba(44, 62, 80, 0.3);
-            border-top-color: #2c3e50;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            font-weight: 600;
-            z-index: 1000;
-            animation: slideIn 0.4s ease-out;
-        }
-
-        .notification.success {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border-left: 4px solid #81c784;
-        }
-
-        .notification.error {
-            background: #ffebee;
-            color: #c62828;
-            border-left: 4px solid #ef5350;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .form-container {
-                padding: 30px 20px;
-            }
-
-            .form-buttons {
-                flex-direction: column;
-            }
-
-            .form-title {
-                font-size: 24px;
-            }
-
-            .notification {
-                left: 20px;
-                right: 20px;
-                bottom: auto;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/carrental.css') }}">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+body{min-height:100vh;display:grid;place-items:center;padding:24px;background:#eaf0f7}
+.auth-shell{width:min(1040px,100%);display:grid;grid-template-columns:1fr 440px;background:white;border:1px solid #dbe3ee;border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(15,23,42,.18)}
+.auth-brand{background:linear-gradient(145deg,#08111f,#0f172a 55%,#1d4ed8);color:white;padding:46px;display:flex;flex-direction:column;justify-content:space-between;min-height:620px}
+.brand-name{font-size:30px;font-weight:800}
+.brand-text h1{font-size:44px;line-height:1.1;margin-bottom:16px}
+.brand-text p{color:#cbd5e1;font-size:16px;line-height:1.7;max-width:440px}
+.brand-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.brand-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:16px}
+.brand-stat strong{display:block;font-size:22px}
+.brand-stat span{color:#cbd5e1;font-size:12px}
+.auth-panel{padding:48px;display:flex;flex-direction:column;justify-content:center}
+.form-title{font-size:32px;font-weight:800;color:#0f172a;margin-bottom:8px}
+.form-subtitle{color:#64748b;margin-bottom:30px}
+.form-group{margin-bottom:18px}
+label{display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:8px}
+input{width:100%;height:48px;border:1px solid #d1d9e6;border-radius:8px;background:#f8fafc;padding:0 14px;font-size:14px;color:#0f172a}
+input:focus{outline:none;border-color:#2563eb;background:white;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+.form-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+button,.auth-link{height:48px;border:none;border-radius:8px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.btn-submit{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:white}
+.btn-reset{background:#eef2f7;color:#0f172a;border:1px solid #dbe3ee}
+.notification{padding:13px 14px;border-radius:8px;margin-bottom:18px;font-weight:700;font-size:14px}
+.notification.success{background:#ecfdf5;color:#166534;border:1px solid #bbf7d0}
+.notification.error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+@media(max-width:860px){.auth-shell{grid-template-columns:1fr}.auth-brand{min-height:auto;padding:30px}.brand-stats{margin-top:28px}.auth-panel{padding:30px}}
+@media(max-width:560px){body{padding:12px}.brand-text h1{font-size:34px}.brand-stats{grid-template-columns:1fr}.form-buttons{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-    <div class="form-container">
-        <h1 class="form-title">Welcome Back</h1>
-        <p class="form-subtitle">Sign in to your account</p>
+<main class="auth-shell">
+    <section class="auth-brand">
+        <div class="brand-name">CarRental</div>
+        <div class="brand-text">
+            <h1>Manage your rental space with confidence.</h1>
+            <p>Login to access the dashboard, manage cars, clients, and locations from one clean place.</p>
+        </div>
+        <div class="brand-stats">
+            <div class="brand-stat"><strong>24/7</strong><span>Access</span></div>
+            <div class="brand-stat"><strong>Fast</strong><span>Admin tools</span></div>
+            <div class="brand-stat"><strong>Simple</strong><span>Rental flow</span></div>
+        </div>
+    </section>
+    <section class="auth-panel">
+        <h1 class="form-title">Welcome back</h1>
+        <p class="form-subtitle">Enter your account details to continue.</p>
 
-        <form method="POST" action="{{ route('verif_login') }}" onsubmit="handleSubmit(event)">
+        @if (session('success'))
+        <div class="notification success">{{ session('success') }}</div>
+        @endif
+
+        @if (session('error'))
+        <div class="notification error">{{ session('error') }}</div>
+        @endif
+
+        @if ($errors->any())
+        <div class="notification error">{{ $errors->first() }}</div>
+        @endif
+
+        <form method="POST" action="{{ route('verif_login') }}">
             @csrf
-
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="admin@gmail.com" value="{{ old('email') }}" required>
             </div>
-
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-
             <div class="form-buttons">
                 <button type="submit" class="btn-submit">Login</button>
-                <button type="button" class="btn-reset" onclick="window.location.href='/signup'">Sign Up</button>
+                <a class="auth-link btn-reset" href="{{ route('signup') }}">Create account</a>
             </div>
         </form>
-    </div>
-
-    <script>
-        const form = document.querySelector('form');
-
-        function validateForm() {
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-
-            if (!email) {
-                alert('Please enter your email');
-                return false;
-            }
-            if (!password) {
-                alert('Please enter your password');
-                return false;
-            }
-            return true;
-        }
-
-        form.addEventListener('submit', function(event) {
-            if (!validateForm()) {
-                event.preventDefault();
-            }
-        });
-    </script>
+    </section>
+</main>
+<script src="{{ asset('js/carrental.js') }}"></script>
 </body>
 </html>

@@ -13,21 +13,23 @@ class LoginController extends Controller
     
     public function verifLogin(Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
 
-        $user = User::where('email', $email)
-                    ->where('password', $password)
-                    ->first();
+        $user = User::where('email', $validated['email'])->first();
 
-        if ($user) {
+        if ($user && $validated['password'] === $user->password) {
             if ($user->role === 'admin') {
-                return redirect('/admin');
-            } else {
-                return redirect('/client');
+                return redirect()->route('admin');
             }
+
+            return redirect()->route('client');
         } else {
-            return back()->with('error', 'Invalid email or password');
+            return back()
+                ->withInput($request->only('email'))
+                ->with('error', 'Wrong email or password.');
         }
     }
 }

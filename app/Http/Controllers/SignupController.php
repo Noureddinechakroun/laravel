@@ -12,20 +12,23 @@ class SignupController extends Controller
     
     public function store(Request $request)
     {
-        $firstname = $request->firstname;
-        $lastname = $request->lastname;
-        $birthdate = $request->birthdate;
-        $gender = $request->gender;
-        $email = $request->email;
-        $password = $request->password;
+        $validated = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'birthdate' => 'required|date|before_or_equal:today',
+            'gender' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
 
         User::create([
-            'firstname' => $firstname,
-            'lastname' => $lastname,
-            'datenaissance' => $birthdate,
-            'gender' => $gender,
-            'email' => $email,
-            'password' => $password,
+            'firstname' => $validated['firstname'],
+            'lastname' => $validated['lastname'],
+            'datenaissance' => $validated['birthdate'],
+            'gender' => $validated['gender'],
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+            'role' => 'client',
         ]);
 
         return redirect('/login')->with('success', 'Account created successfully. Please login.');
