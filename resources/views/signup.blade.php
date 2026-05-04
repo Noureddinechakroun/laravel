@@ -6,7 +6,35 @@
 <title>Sign Up</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/carrental.css') }}">
-<link rel="stylesheet" href="{{ asset('css/signup.css') }}">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+body{min-height:100vh;display:grid;place-items:center;padding:24px;background:#eaf0f7}
+.auth-shell{width:min(1120px,100%);display:grid;grid-template-columns:420px 1fr;background:white;border:1px solid #dbe3ee;border-radius:8px;overflow:hidden;box-shadow:0 30px 80px rgba(15,23,42,.18)}
+.auth-brand{background:linear-gradient(145deg,#08111f,#0f172a 58%,#059669);color:white;padding:44px;display:flex;flex-direction:column;justify-content:space-between}
+.brand-name{font-size:30px;font-weight:800}
+.brand-text h1{font-size:40px;line-height:1.12;margin-bottom:16px}
+.brand-text p{color:#d1fae5;font-size:16px;line-height:1.7}
+.steps{display:grid;gap:12px;margin-top:28px}
+.step{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:14px}
+.step strong{display:block;margin-bottom:4px}
+.step span{font-size:13px;color:#d1fae5}
+.auth-panel{padding:42px 48px}
+.form-title{font-size:32px;font-weight:800;color:#0f172a;margin-bottom:8px}
+.form-subtitle{color:#64748b;margin-bottom:26px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{margin-bottom:16px}
+label{display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:8px}
+input,select{width:100%;height:48px;border:1px solid #d1d9e6;border-radius:8px;background:#f8fafc;padding:0 14px;font-size:14px;color:#0f172a}
+input:focus,select:focus{outline:none;border-color:#2563eb;background:white;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+.form-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+button,.auth-link{height:48px;border:none;border-radius:8px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.btn-submit{background:linear-gradient(135deg,#10b981,#059669);color:white}
+.btn-back{background:#eef2f7;color:#0f172a;border:1px solid #dbe3ee}
+.notification{padding:13px 14px;border-radius:8px;margin-bottom:18px;font-weight:700;font-size:14px}
+.notification.error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+@media(max-width:900px){.auth-shell{grid-template-columns:1fr}.auth-brand{padding:30px}.auth-panel{padding:30px}}
+@media(max-width:620px){body{padding:12px}.form-row,.form-buttons{grid-template-columns:1fr}.brand-text h1{font-size:32px}}
+</style>
 </head>
 <body>
 <main class="auth-shell">

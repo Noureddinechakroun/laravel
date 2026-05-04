@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -21,10 +23,10 @@ class LoginController extends Controller
         $user = User::where('email', $validated['email'])->first();
 
         if ($user && $validated['password'] === $user->password) {
+            Auth::login($user);
             if ($user->role === 'admin') {
                 return redirect()->route('admin');
             }
-
             return redirect()->route('client');
         } else {
             return back()
