@@ -9,8 +9,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VoitureController;
 use App\Http\Controllers\LocationController;
 use App\Models\Voiture;
-
-// ── Routes publiques ──────────────────────────────────────
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,13 +18,11 @@ Route::get('/signup',   [SignupController::class, 'showSignup'])->name('signup')
 Route::post('/signup',  [SignupController::class, 'store'])->name('signup.store');
 Route::post('/verif_login', [LoginController::class, 'verifLogin'])->name('verif_login');
 
-// ── Logout ────────────────────────────────────────────────
 Route::post('/logout', function () {
     Auth::logout();
     return redirect()->route('login');
 })->name('logout');
 
-// ── Admin ─────────────────────────────────────────────────
 Route::redirect('/admin', '/admin/dashboard');
 
 Route::prefix('admin')->group(function () {
@@ -36,7 +32,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('locations', LocationController::class)->except(['show']);
 });
 
-// ── Client (protégé par auth) ─────────────────────────────
 Route::middleware('auth')->group(function () {
 
     Route::get('/client', function () {

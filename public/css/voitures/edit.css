@@ -1,4 +1,4 @@
-*{box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+﻿*{box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
 body{background:#f4f6f9;color:#111827;padding:24px}
 .container{max-width:760px;margin:auto}
 .card{background:white;border-radius:8px;padding:24px;box-shadow:0 6px 18px rgba(15,23,42,.08)}

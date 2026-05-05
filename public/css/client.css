@@ -27,8 +27,6 @@ body {
     background: var(--body-bg);
     color: var(--text);
 }
-
-/* Sidebar */
 .sidebar {
     width: 260px;
     min-height: 100vh;
@@ -137,8 +135,6 @@ nav a .icon {
 .logout-btn:hover {
     background: rgba(248, 113, 113, .1);
 }
-
-/* Main page */
 .main {
     margin-left: 260px;
     flex: 1;
@@ -158,8 +154,6 @@ nav a .icon {
     color: var(--muted);
     margin-top: 4px;
 }
-
-/* Search */
 .filter-bar {
     display: flex;
     gap: 12px;
@@ -198,8 +192,6 @@ nav a .icon {
     transform: translateY(-50%);
     color: var(--muted);
 }
-
-/* Cars */
 .cars-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -304,8 +296,6 @@ nav a .icon {
 .rent-btn:hover {
     background: var(--blue-dark);
 }
-
-/* Empty state */
 .empty {
     text-align: center;
     padding: 72px 24px;
@@ -329,8 +319,6 @@ nav a .icon {
     color: var(--muted);
     font-size: 15px;
 }
-
-/* Responsive */
 @media (max-width: 900px) {
     body {
         flex-direction: column;

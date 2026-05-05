@@ -45,8 +45,6 @@
     </a>
   </div>
 </aside>
-
-<!-- MAIN -->
 <main class="main">
 
   <div class="page-header">
