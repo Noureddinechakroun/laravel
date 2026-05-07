@@ -66,6 +66,7 @@
       $dateDebut = \Carbon\Carbon::parse($location->date_debut);
       $dateFin   = \Carbon\Carbon::parse($location->date_fin);
       $jours     = $dateDebut->diffInDays($dateFin) + 1;
+      $montantFacture = $location->statut === 'annulee' ? 0 : $location->prix_total;
     @endphp
 
     <table class="lines">
@@ -79,12 +80,15 @@
         <td>{{ $location->voiture->marque }} {{ $location->voiture->modele }} – location</td>
         <td class="right">{{ $jours }} j</td>
         <td class="right">{{ number_format($location->voiture->prix_jour, 2) }} DT</td>
-        <td class="right">{{ number_format($location->prix_total, 2) }} DT</td>
+        <td class="right">{{ number_format($montantFacture, 2) }} DT</td>
       </tr>
     </table>
+    @if($location->statut === 'annulee')
+      <div class="cancel-note">Location annulee : aucun montant a payer.</div>
+    @endif
     <div class="total-row">
       <div class="total-label">Montant total TTC</div>
-      <div class="total-amount">{{ number_format($location->prix_total, 2) }} DT</div>
+      <div class="total-amount">{{ number_format($montantFacture, 2) }} DT</div>
     </div>
 
   </div>

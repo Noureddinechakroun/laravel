@@ -72,7 +72,7 @@
   @php
     $total     = $locations->count();
     $enCours   = $locations->where('statut', 'en_cours')->count();
-    $totalPaye = $locations->sum('prix_total');
+    $totalPaye = $locations->where('statut', '!=', 'annulee')->sum('prix_total');
   @endphp
 
   <div class="stats">
@@ -128,7 +128,9 @@
             </td>
             <td>{{ \Carbon\Carbon::parse($loc->date_debut)->format('d/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($loc->date_fin)->format('d/m/Y') }}</td>
-            <td style="font-weight:700">{{ number_format($loc->prix_total, 2) }} DT</td>
+            <td style="font-weight:700">
+              {{ number_format($loc->statut === 'annulee' ? 0 : $loc->prix_total, 2) }} DT
+            </td>
             <td>
               <span class="status-badge {{ $loc->statut }}">
                 <span class="status-dot"></span>

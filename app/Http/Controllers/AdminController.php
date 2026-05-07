@@ -14,7 +14,7 @@ class AdminController extends Controller
             'totalUsers' => User::count(),
             'totalVoitures' => Voiture::count(),
             'totalLocations' => Location::count(),
-            'totalRevenue' => Location::sum('prix_total'),
+            'totalRevenue' => Location::where('statut', '!=', 'annulee')->sum('prix_total'),
             'latestLocations' => Location::with(['user', 'voiture'])->latest()->take(5)->get(),
         ]);
     }

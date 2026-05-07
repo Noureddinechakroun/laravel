@@ -50,6 +50,10 @@ class LocationController extends Controller
             $validated['date_fin']
         );
 
+        if ($validated['statut'] === 'annulee') {
+            $validated['prix_total'] = 0;
+        }
+
         Location::create($validated);
         $this->updateVoitureStatus($validated['voiture_id'], $validated['statut']);
 
@@ -83,6 +87,10 @@ class LocationController extends Controller
         ]);
 
         $validated['prix_total'] = $this->calculateTotal($validated['voiture_id'], $validated['date_debut'], $validated['date_fin']);
+
+        if ($validated['statut'] === 'annulee') {
+            $validated['prix_total'] = 0;
+        }
 
         $oldVoitureId = $location->voiture_id;
 
@@ -222,7 +230,10 @@ class LocationController extends Controller
                 ->with('error', 'Seules les locations en cours peuvent etre annulees.');
         }
 
-        $location->update(['statut' => 'annulee']);
+        $location->update([
+            'statut' => 'annulee',
+            'prix_total' => 0,
+        ]);
         $this->updateVoitureStatus($location->voiture_id, 'annulee');
 
         return redirect()->route('locations.client')->with('success', 'Location annulee avec succes.');

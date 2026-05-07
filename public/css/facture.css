@@ -68,6 +68,7 @@ body{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;al
 .lines td{padding:12px 0;font-size:14px;border-bottom:1px solid var(--border)}
 .lines tr:last-child td{border-bottom:none}
 .lines .right{text-align:right;font-weight:600}
+.cancel-note{background:#fee2e2;color:#991b1b;border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:13px;font-weight:700}
 .total-row{
   display:flex;align-items:center;justify-content:space-between;
   background:linear-gradient(135deg,var(--blue),var(--blue-dark));
