@@ -37,6 +37,10 @@
     </svg>
     Factures
 </a>
+    <a href="{{ route('client.profile.edit') }}">
+      <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5.121 17.804A8 8 0 1118.879 17.8M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Mes informations
+    </a>
   </nav>
 
   <div class="sidebar-footer">

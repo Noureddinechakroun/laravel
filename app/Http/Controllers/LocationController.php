@@ -153,4 +153,85 @@ class LocationController extends Controller
 
         return redirect()->route('locations.facture', $location->id);
     }
+
+    public function clientEdit(Location $location)
+    {
+        $this->authorizeClientLocation($location);
+
+        if ($location->statut !== 'en_cours') {
+            return redirect()->route('locations.client')
+                ->with('error', 'Seules les locations en cours peuvent etre modifiees.');
+        }
+
+        return view('locations.edit', [
+            'location' => $location,
+            'users' => collect([auth()->user()]),
+            'voitures' => Voiture::where(function ($query) use ($location) {
+                $query->where('statut', 'disponible')
+                    ->orWhere('id', $location->voiture_id);
+            })->orderBy('marque')->orderBy('modele')->get(),
+            'isClientPage' => true,
+        ]);
+    }
+
+    public function clientUpdate(Request $request, Location $location)
+    {
+        $this->authorizeClientLocation($location);
+
+        if ($location->statut !== 'en_cours') {
+            return redirect()->route('locations.client')
+                ->with('error', 'Seules les locations en cours peuvent etre modifiees.');
+        }
+
+        $validated = $request->validate([
+            'voiture_id' => [
+                'required',
+                'exists:table_voiture,id',
+                Rule::exists('table_voiture', 'id')->where(function ($query) use ($location) {
+                    $query->where('statut', 'disponible')
+                        ->orWhere('id', $location->voiture_id);
+                }),
+            ],
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date|after_or_equal:date_debut',
+        ]);
+
+        $validated['user_id'] = auth()->id();
+        $validated['statut'] = 'en_cours';
+        $validated['prix_total'] = $this->calculateTotal(
+            $validated['voiture_id'],
+            $validated['date_debut'],
+            $validated['date_fin']
+        );
+
+        $oldVoitureId = $location->voiture_id;
+
+        $location->update($validated);
+        $this->updateVoitureStatus($oldVoitureId, 'terminee');
+        $this->updateVoitureStatus($validated['voiture_id'], 'en_cours');
+
+        return redirect()->route('locations.client')->with('success', 'Location modifiee avec succes.');
+    }
+
+    public function clientCancel(Location $location)
+    {
+        $this->authorizeClientLocation($location);
+
+        if ($location->statut !== 'en_cours') {
+            return redirect()->route('locations.client')
+                ->with('error', 'Seules les locations en cours peuvent etre annulees.');
+        }
+
+        $location->update(['statut' => 'annulee']);
+        $this->updateVoitureStatus($location->voiture_id, 'annulee');
+
+        return redirect()->route('locations.client')->with('success', 'Location annulee avec succes.');
+    }
+
+    private function authorizeClientLocation(Location $location)
+    {
+        if ($location->user_id !== auth()->id()) {
+            abort(403);
+        }
+    }
 }

@@ -60,6 +60,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/mes-locations', [LocationController::class, 'clientIndex'])
         ->name('locations.client');
 
+    Route::get('/mes-locations/{location}/modifier', [LocationController::class, 'clientEdit'])
+        ->name('client.locations.edit');
+
+    Route::put('/mes-locations/{location}', [LocationController::class, 'clientUpdate'])
+        ->name('client.locations.update');
+
+    Route::put('/mes-locations/{location}/annuler', [LocationController::class, 'clientCancel'])
+        ->name('client.locations.cancel');
+
     Route::get('/facture/{id}', [LocationController::class, 'facture'])
         ->name('locations.facture');
 
@@ -71,4 +80,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/louer/{voiture}', [LocationController::class, 'store'])
         ->name('client.locations.store');
+
+    Route::get('/mes-informations', [UserController::class, 'profileEdit'])
+        ->name('client.profile.edit');
+
+    Route::put('/mes-informations', [UserController::class, 'profileUpdate'])
+        ->name('client.profile.update');
 });

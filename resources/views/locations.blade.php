@@ -37,6 +37,12 @@
     </svg>
     Factures
     </a>
+    <a href="{{ route('client.profile.edit') }}">
+      <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M5.121 17.804A8 8 0 1118.879 17.8M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      Mes informations
+    </a>
   </nav>
   <div class="sidebar-footer">
     <form method="POST" action="{{ route('logout') }}">
@@ -55,6 +61,13 @@
     <h1>Mes locations</h1>
     <p>Historique de toutes vos réservations.</p>
   </div>
+
+  @if(session('success'))
+    <div class="alert success">{{ session('success') }}</div>
+  @endif
+  @if(session('error'))
+    <div class="alert error">{{ session('error') }}</div>
+  @endif
 
   @php
     $total     = $locations->count();
@@ -94,6 +107,7 @@
             <th>Total</th>
             <th>Statut</th>
             <th>Facture</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -128,6 +142,20 @@
                 </svg>
                 Voir
               </a>
+            </td>
+            <td>
+              @if($loc->statut === 'en_cours')
+                <div class="action-group">
+                  <a href="{{ route('client.locations.edit', $loc->id) }}" class="edit-btn">Modifier</a>
+                  <form method="POST" action="{{ route('client.locations.cancel', $loc->id) }}" onsubmit="return confirm('Annuler cette location ?')">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="cancel-btn">Annuler</button>
+                  </form>
+                </div>
+              @else
+                <span class="muted-action">Non disponible</span>
+              @endif
             </td>
           </tr>
           @endforeach

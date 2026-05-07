@@ -9,21 +9,32 @@
 <link rel="stylesheet" href="{{ asset('css/locations/edit.css') }}">
 </head>
 <body>
+@php
+    $isClientPage = $isClientPage ?? request()->routeIs('client.locations.edit');
+@endphp
 <div class="container">
     <div class="card">
-        <h1>Edit location</h1>
+        <h1>{{ $isClientPage ? 'Modifier ma location' : 'Edit location' }}</h1>
         @if($errors->any())
         <div class="error">{{ $errors->first() }}</div>
         @endif
-        <form action="{{ route('locations.update',$location->id) }}" method="POST">
+        <form action="{{ $isClientPage ? route('client.locations.update',$location->id) : route('locations.update',$location->id) }}" method="POST">
             @csrf
             @method('PUT')
+            @if($isClientPage)
+            <div class="selected-car">
+                <span>Client</span>
+                <strong>{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</strong>
+                <small>{{ auth()->user()->email }}</small>
+            </div>
+            @else
             <label>Client</label>
             <select name="user_id">
                 @foreach($users as $user)
                 <option value="{{ $user->id }}" {{ old('user_id',$location->user_id) == $user->id ? 'selected' : '' }}>{{ $user->firstname }} {{ $user->lastname }} - {{ $user->email }}</option>
                 @endforeach
             </select>
+            @endif
             <label>Voiture</label>
             <select name="voiture_id" id="voiture_id">
                 @foreach($voitures as $voiture)
@@ -42,6 +53,7 @@
             </div>
             <input type="hidden" name="prix_total" id="prix_total" value="{{ old('prix_total',$location->prix_total) }}">
             <div class="total" id="total_box">Total: {{ number_format($location->prix_total, 2) }} DT</div>
+            @if(!$isClientPage)
             <div class="row">
                 <div>
                     <label>Status</label>
@@ -54,9 +66,10 @@
                 <div>
                 </div>
             </div>
+            @endif
             <div class="actions">
-                <button>Save</button>
-                <a class="btn" href="{{ route('locations.index') }}">Back</a>
+                <button>{{ $isClientPage ? 'Enregistrer' : 'Save' }}</button>
+                <a class="btn" href="{{ $isClientPage ? route('locations.client') : route('locations.index') }}">Back</a>
             </div>
         </form>
     </div>

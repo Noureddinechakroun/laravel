@@ -55,6 +55,16 @@ tr:hover td{background:#f8fafc}
 .status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
 .facture-btn{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;text-decoration:none;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:700;transition:background .2s}
 .facture-btn:hover{background:var(--blue-dark)}
+.action-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.edit-btn,.cancel-btn{display:inline-flex;align-items:center;justify-content:center;border:none;text-decoration:none;padding:7px 12px;border-radius:7px;font-size:12px;font-weight:700;font-family:Poppins,sans-serif;cursor:pointer}
+.edit-btn{background:#eff6ff;color:#1d4ed8}
+.edit-btn:hover{background:#dbeafe}
+.cancel-btn{background:#fee2e2;color:#991b1b}
+.cancel-btn:hover{background:#fecaca}
+.muted-action{color:var(--muted);font-size:12px;font-weight:700}
+.alert{padding:12px 14px;border-radius:8px;margin-bottom:16px;font-size:14px;font-weight:600}
+.alert.success{background:#d1fae5;color:#065f46}
+.alert.error{background:#fee2e2;color:#991b1b}
 .empty{text-align:center;padding:60px 24px;color:var(--muted)}
 .empty-icon{font-size:48px;margin-bottom:12px}
 .empty h3{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}

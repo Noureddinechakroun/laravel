@@ -11,4 +11,8 @@ button,.btn{border:none;border-radius:8px;padding:10px 14px;color:white;text-dec
 button{background:#2563eb}.btn{background:#64748b}
 .error{background:#fee2e2;color:#991b1b;padding:10px;border-radius:8px;margin-bottom:12px}
 .total{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:8px;padding:14px;margin-top:12px;font-weight:700}
+.selected-car{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-bottom:14px}
+.selected-car span{display:block;color:#64748b;font-size:12px;font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.selected-car strong{display:block}
+.selected-car small{display:block;color:#64748b;margin-top:2px}
 @media(max-width:680px){.row{grid-template-columns:1fr}}

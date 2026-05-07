@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -63,5 +64,38 @@ class UserController extends Controller
     {
         User::findOrFail($id)->delete();
         return redirect()->route('users.index')->with('success', 'Utilisateur supprime avec succes.');
+    }
+
+    public function profileEdit()
+    {
+        return view('profile.edit', ['user' => auth()->user()]);
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'datenaissance' => 'required|date',
+            'gender' => 'required|string|in:male,female',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        if (!empty($validated['password'])) {
+            $validated['password'] = $validated['password'];
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return redirect()->route('client.profile.edit')->with('success', 'Informations modifiees avec succes.');
     }
 }
